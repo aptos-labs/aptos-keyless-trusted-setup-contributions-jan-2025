@@ -9,9 +9,9 @@ To download the large `.r1cs`, `.ptau`, and `.zkey` files in this repo, [install
 Then run the following commands to clone the repo without the larger files:
 
 ```
-GIT_LFS_SKIP_SMUDGE=1 git clone https://github.com/aptos-labs/aptos-keyless-trusted-setup-contributions-may-2024
+GIT_LFS_SKIP_SMUDGE=1 git clone https://github.com/aptos-labs/aptos-keyless-trusted-setup-contributions-jan-2025
 
-cd aptos-keyless-trusted-setup-contributions-may-2024
+cd aptos-keyless-trusted-setup-contributions-jan-2025
 ```
 
 To get a specific file `<filename>`, run
@@ -31,7 +31,7 @@ nvm use 18
 and
 
 ```
-npm install snarkjs@0.6.11
+npm install snarkjs@0.7.5
 ```
 
 to install the version of `snarkjs` used by our code which was used to run the setup ceremony. 
@@ -55,22 +55,23 @@ The powers of tau file used was downloaded from one of the links provided here i
 To verify this file, run 
 
 ```
-npx snarkjs@0.6.11 powersoftau verify powersOfTau28_hez_final_21.ptau -v
+npx snarkjs@0.7.5 powersoftau verify powersOfTau28_hez_final_21.ptau -v
 ```
 
 # Reproducing the .r1cs file
 
-To reproduce `main.r1cs`, clone the [Aptos Core Repo](https://github.com/aptos-labs/aptos-core), checkout commit `39f9c44b4342ed5e6941fae36cf6c87c52b1e17f`, and run the following commands:
+To reproduce `main.r1cs`, clone the [Private Keyless Zk Proofs Repo](https://github.com/aptos-labs/keyless-zk-proofs-private), checkout commit `c60ae945e577295ac1a712391af1bcb337c584d2`, and run the following commands:
 
 ```
-cd keyless/circuit-data/templates
-circom -l . main.circom --r1cs
+cd circuit
+npm install circomlib
+circom -l `npm root -g` templates/main.circom --r1cs
 ```
 
 The `b2sum` hash of the resulting `main.r1cs` file should be 
 
 ```
-9e9bb596c7a453521e9b8df1dbd82c0bad5788f2679f8c53a6bc6112b9ec6061fea36547efa649ba9af78f6792ecd639a654ea6a1d11553b1ce93998924b3ac2
+e8b507838e85879e632eb6798917b60ed20138347aef7654976dc3f93f6fc2b6e445d980102c8fc674b5f2aae01062de08ce8b895ebcb21962984b87cdfdde63
 ```
 
 which is identical to the `b2sum` hash of `main_39f9c44b4342ed5e6941fae36cf6c87c52b1e17f.r1cs` in this repo.
@@ -82,26 +83,25 @@ This provides a link between our circuit code and the trusted setup, ensuring yo
 To reproduce the initial `.zkey` file, run the command
 
 ```
-npx snarkjs@0.6.11 groth16 setup main.r1cs ./powersOfTau28_hez_final_21.ptau initial.zkey -v
+npx snarkjs@0.7.5 groth16 setup main.r1cs ./powersOfTau28_hez_final_21.ptau initial.zkey -v
 ```
 
-The `b2sum` hash of the resulting `.zkey` file should match that of `contributions/main_00000.zkey`. This hash value is
+The `b2sum` hash of the resulting `.zkey` file should match that of `contributions/main_0000.zkey`. This hash value is
 
 ```
-8381954aa98bc7c7e11fd1f74f544320937f291fd1ce83cfc2a227c805b69de5362781c2484b125c600591cb54a34da56c0911f9a0fea066636f5c79ddbcc3c4
+8f49db19a4866a97d04869d9a9abfd216b58f93dfb68b824320d4a4a42148540d8d2eddf4488345f7d23299a067b1a8adeba530c97d59ffa2ff1a34bdbd9414b
 ```
-
 
 
 # Verifying Individual Contributions
 
 
-The folder `contributions` contains all `.zkey` files output by the Aptos OIDB trusted setup. Each `.zkey` file corresponds to the contribution of one participant, in the order of their having participated, so that i.e. `main_00004.zkey` corresponds to the output of the contribution made by the 4-th participant to have completed their contribution.
+The folder `contributions` contains all `.zkey` files output by the Aptos Keyless trusted setup. Each `.zkey` file corresponds to the contribution of one participant, in the order of their having participated, so that i.e. `main_00004.zkey` corresponds to the output of the contribution made by the 4-th participant to have completed their contribution.
 
 Each contribution may be verified by running the command 
 
 ```
-npx snarkjs@0.6.11 zkey verify main.r1cs powersOfTau28_hez_final_21.ptau contributions/<contribution_filename>.zkey -v
+npx snarkjs@0.7.5 zkey verify main.r1cs powersOfTau28_hez_final_21.ptau contributions/<contribution_filename>.zkey -v
 ```
 
 Depending on your machine, this command can take upwards of 20 minutes. Upon completion, it will produce an output of the following form: 
@@ -139,11 +139,12 @@ This is a list of all contribution hashes up to and including the current contri
 This may be done with the following command:
 
 ```
-npx snarkjs@0.6.11 zkey verify main.r1cs powersOfTau28_hez_final_21.ptau contributions/main_final.zkey -v
+npx snarkjs@0.7.5 zkey verify main.r1cs powersOfTau28_hez_final_21.ptau contributions/main_final.zkey -v
 ```
 
 Note that the contribution hash is not simply a hash of the `.zkey` file, but a hash of the participant-specific parameters stored by every `.zkey` file after a participant's contribution has been made. Verification on the `i`-th `.zkey` file includes checks on these parameters for participants `1` through `i`. The output of this process is used in verifying the `.zkey` file overall when running the above `zkey verify` command. 
 
+TODO: Update below
 # Applying the randomness beacon
 
 To eliminate potential bias, we apply the [Drand randomness beacon](https://drand.love/) to the final `.zkey` file to obtain our final `.zkey` file for use in production. To regenerate our randomness, first [follow the instructions here](https://drand.love/developer/drand-client/#installation) and then run
