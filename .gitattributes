@@ -4,3 +4,4 @@ contributions/main_0001.zkey filter=lfs diff=lfs merge=lfs -text
 contributions/main_0004.zkey filter=lfs diff=lfs merge=lfs -text
 contributions/main_0002.zkey filter=lfs diff=lfs merge=lfs -text
 contributions/main_0003.zkey filter=lfs diff=lfs merge=lfs -text
+main_c60ae945e577295ac1a712391af1bcb337c584d2.r1cs filter=lfs diff=lfs merge=lfs -text

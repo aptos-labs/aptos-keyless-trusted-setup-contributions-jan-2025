@@ -147,25 +147,18 @@ Note that the contribution hash is not simply a hash of the `.zkey` file, but a 
 TODO: Update below
 # Applying the randomness beacon
 
-To eliminate potential bias, we apply the [Drand randomness beacon](https://drand.love/) to the final `.zkey` file to obtain our final `.zkey` file for use in production. To regenerate our randomness, first [follow the instructions here](https://drand.love/developer/drand-client/#installation) and then run
+To eliminate potential bias, we apply the [Drand randomness beacon](https://drand.love/) to the final `.zkey` file to obtain our final `.zkey` file for use in production. The randomness we used can be found at [this link](https://api3.drand.sh/52db9ba70e0cc0f6eaf7803dd07447a1f5477735fd3f661792ba94600c84e971/public/14517013) which uses one of the public drand endpoints, and was the latest round of drand randomness as of about 10:42AM CST Jan 8, 2025. 
+
+It should contain the following value
 
 ```
-./drand-client --round 3977904 \
---chain-hash 8990e7a9aaed2ffed73dbd7092123d6f289930540d7651336225dc172e51b2ce \
---url http://api.drand.sh \
---relay /dnsaddr/api.drand.sh
-```
-
-which should output round number `3977904` and randomness
-
-```
-897783163d9f6d305b57b5a47e856a31cd6ee33c9dc8d56d0a59579def57558a
+{"round":14517013,"randomness":"97d920a0817f74b4dbff89a721faeda4ea307bc5d8890ebb833700ea68b2d106","signature":"83236a954108c9de257b6a10c838f3e3f215eb3bd25c2261f42b4a6204d6b00a3f216b8d88dcd7947cba97d39f2e16c5"}
 ```
 
 You can recreate the final `.zkey` file by running
 
 ```
-npx snarkjs@0.6.11 zkey beacon contributions/main_00141.zkey main_final.zkey da44fdb1c88a25fd68d8581e077dd9e4d6d4c8af22c30b127a23dd8343995565 10 -v
+npx snarkjs@0.7.5 zkey beacon contributions/main_0004.zkey main_final.zkey 97d920a0817f74b4dbff89a721faeda4ea307bc5d8890ebb833700ea68b2d106 10 -v
 ```
 
 This command may take 10-15 minutes. It should output
