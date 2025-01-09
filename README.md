@@ -60,7 +60,7 @@ npx snarkjs@0.7.5 powersoftau verify powersOfTau28_hez_final_21.ptau -v
 
 # Reproducing the .r1cs file
 
-To reproduce `main.r1cs`, clone the [Private Keyless Zk Proofs Repo](https://github.com/aptos-labs/keyless-zk-proofs-private), checkout commit `c60ae945e577295ac1a712391af1bcb337c584d2`, and run the following commands:
+To reproduce `main_c60ae945e577295ac1a712391af1bcb337c584d2.r1cs`, clone the [Private Keyless Zk Proofs Repo](https://github.com/aptos-labs/keyless-zk-proofs-private), checkout commit `c60ae945e577295ac1a712391af1bcb337c584d2`, and run the following commands:
 
 ```
 cd circuit
