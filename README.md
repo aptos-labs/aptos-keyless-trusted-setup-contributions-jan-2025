@@ -101,7 +101,7 @@ The folder `contributions` contains all `.zkey` files output by the Aptos Keyles
 Each contribution may be verified by running the command 
 
 ```
-npx snarkjs@0.7.5 zkey verify main.r1cs powersOfTau28_hez_final_21.ptau contributions/<contribution_filename>.zkey -v
+npx snarkjs@0.7.5 zkey verify main_c60ae945e577295ac1a712391af1bcb337c584d2.r1cs powersOfTau28_hez_final_21.ptau contributions/<contribution_filename>.zkey -v
 ```
 
 Depending on your machine, this command can take upwards of 20 minutes. Upon completion, it will produce an output of the following form: 
