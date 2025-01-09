@@ -9,3 +9,13 @@ contributions/main_0005.zkey filter=lfs diff=lfs merge=lfs -text
 contributions/main_0006.zkey filter=lfs diff=lfs merge=lfs -text
 powersOfTau28_hez_final_21.ptau filter=lfs diff=lfs merge=lfs -text
 contributions/main_final.zkey filter=lfs diff=lfs merge=lfs -text
+main_c_cpp_c60ae945e577295ac1a712391af1bcb337c584d2/circom.hpp filter=lfs diff=lfs merge=lfs -text
+main_c_cpp_c60ae945e577295ac1a712391af1bcb337c584d2/fr.cpp filter=lfs diff=lfs merge=lfs -text
+main_c_cpp_c60ae945e577295ac1a712391af1bcb337c584d2/main.cpp filter=lfs diff=lfs merge=lfs -text
+main_c_cpp_c60ae945e577295ac1a712391af1bcb337c584d2/main_c.dat filter=lfs diff=lfs merge=lfs -text
+main_c_cpp_c60ae945e577295ac1a712391af1bcb337c584d2/calcwit.hpp filter=lfs diff=lfs merge=lfs -text
+main_c_cpp_c60ae945e577295ac1a712391af1bcb337c584d2/calcwit.cpp filter=lfs diff=lfs merge=lfs -text
+main_c_cpp_c60ae945e577295ac1a712391af1bcb337c584d2/fr.asm filter=lfs diff=lfs merge=lfs -text
+main_c_cpp_c60ae945e577295ac1a712391af1bcb337c584d2/fr.hpp filter=lfs diff=lfs merge=lfs -text
+main_c_cpp_c60ae945e577295ac1a712391af1bcb337c584d2/main_c.cpp filter=lfs diff=lfs merge=lfs -text
+main_c_cpp_c60ae945e577295ac1a712391af1bcb337c584d2/Makefile filter=lfs diff=lfs merge=lfs -text
