@@ -74,7 +74,7 @@ The `b2sum` hash of the resulting `main.r1cs` file should be
 e8b507838e85879e632eb6798917b60ed20138347aef7654976dc3f93f6fc2b6e445d980102c8fc674b5f2aae01062de08ce8b895ebcb21962984b87cdfdde63
 ```
 
-which is identical to the `b2sum` hash of `main_39f9c44b4342ed5e6941fae36cf6c87c52b1e17f.r1cs` in this repo.
+which is identical to the `b2sum` hash of `main_c60ae945e577295ac1a712391af1bcb337c584d2.r1cs` in this repo.
 
 This provides a link between our circuit code and the trusted setup, ensuring you can verify the setup was done over the correct codebase. Without this link, you could not know what circuit the setup was done over, making it potentially insecure. 
 
