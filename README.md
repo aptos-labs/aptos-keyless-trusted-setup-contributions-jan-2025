@@ -144,7 +144,6 @@ npx snarkjs@0.7.5 zkey verify main.r1cs powersOfTau28_hez_final_21.ptau contribu
 
 Note that the contribution hash is not simply a hash of the `.zkey` file, but a hash of the participant-specific parameters stored by every `.zkey` file after a participant's contribution has been made. Verification on the `i`-th `.zkey` file includes checks on these parameters for participants `1` through `i`. The output of this process is used in verifying the `.zkey` file overall when running the above `zkey verify` command. 
 
-TODO: Update below
 # Applying the randomness beacon
 
 To eliminate potential bias, we apply the [Drand randomness beacon](https://drand.love/) to the final `.zkey` file to obtain our final `.zkey` file for use in production. The randomness we used can be found at [this link](https://api3.drand.sh/52db9ba70e0cc0f6eaf7803dd07447a1f5477735fd3f661792ba94600c84e971/public/14517013) which uses one of the public drand endpoints, and was the latest round of drand randomness as of about 10:42AM CST Jan 8, 2025. 
@@ -158,29 +157,29 @@ It should contain the following value
 You can recreate the final `.zkey` file by running
 
 ```
-npx snarkjs@0.7.5 zkey beacon contributions/main_0004.zkey main_final.zkey 97d920a0817f74b4dbff89a721faeda4ea307bc5d8890ebb833700ea68b2d106 10 -v
+npx snarkjs@0.7.5 zkey beacon contributions/main_0006.zkey main_final.zkey 97d920a0817f74b4dbff89a721faeda4ea307bc5d8890ebb833700ea68b2d106 10 -v
 ```
 
 This command may take 10-15 minutes. It should output
 
 ```
 [INFO]  snarkJS: Contribution Hash: 
-		fe2a67c9 267a89ac 401e1e0c f6967df5
-		84f10fcd 07f49b71 cd204771 f7eff35f
-		f60bc605 195b1912 0b698f0b 15b4247e
-		84188144 2c7bd57a 9143de22 430379cd
+		7fb2dcc3 85440fa4 cdadba70 3763a81a
+		f4d4b915 a6f7ec08 d3b94073 0746b05f
+		6dfebb9c cb5933e7 782d19e4 9e76ee49
+		e0c417f4 620b3ebc 8466c0a0 36250683
 ```
 
 As with other contributions, this `.zkey` file may be verified by running
 
 ```
-npx snarkjs@0.6.11 zkey verify main.r1cs powersOfTau28_hez_final_21.ptau main_final.zkey -v
+npx snarkjs@0.7.5 zkey verify main.r1cs powersOfTau28_hez_final_21.ptau main_final.zkey -v
 ```
 
 The `b2sum` hash of the resulting `main_final.zkey` should be 
 
 ```
-07ee7c4de536efe9866a351001698ffdd2bd377b148bec67e4adadd1bb1d3e09ce7b2f07e68ba207f339e4ee8e44335f9c2c574c07d51aa0283dcc8cb65ad992
+78f160d7ab39a4b1fa304bec31a75848de0c88aa43fa7de9931fd16e36541e3ff109aac53a3bb3b3db07c77a4ae1045afc5b9e93d623f90ce4dfba11ff785b08
 ```
 
 which is identical to the `b2sum` hash of `contributions/main_final.zkey`.
@@ -190,52 +189,13 @@ which is identical to the `b2sum` hash of `contributions/main_final.zkey`.
 The final verification key can be exported using 
 
 ```
-npx snarkjs@0.6.11 zkey export verificationkey contributions/main_final.zkey verification_key_regen.json
+npx snarkjs@0.7.5 zkey export verificationkey contributions/main_final.zkey verification_key_regen.json
 ```
 
 Its `b2sum` hash is
 
 ```
-57e3e3f7f9a43566b64eef59b8ce868b3c55c12c6ee0b52660006067bbe98c51d20644334d8ae587f54736f6a8b81a539b23017b0abeb3d03046d893faaa691b
+9b8d240ee77e9cda48aa3caa85f8fc355293ee12f0015363b411fa1fce15294269613c3cbf1185cc867fd97c0e9cb5fa622e4fd5082a1add1899671d098c2273
 ```
 
-This should be identical to the `verification_key.json` file already in the repo.
-
-# Participant List
-
-The list of participants who both completed their contribution and consented to have their identity listed are presented below. We would like to sincerely thank both them and those who have chosen to remain anonymous for contributing to the security of Aptos Keyless. 
-
-# aptos-keyless-trusted-setup-contributions-may-2024
-
-```
-Daniel Porteous (dport)
-Maykon Michel Palma
-Max Kaplan
-Rasa Welcher
-Greg Nazario
-Rustie Lin
-Rati Gelashvili
-zhoujunma
-Sherry Xiao
-Maayan
-Michael Straka
-None
-Zekun Li
-Alyssa Ponzo
-Artsiom Holikau
-Philip Vu
-Eric Carlson
-darren
-schultzie
-Gabriele Della Casa Venturelli
-None
-John Youngseok Yang
-Alin Tomescu
-Avery Ching
-Oliver He
-Kobi Gurkan
-jill
-Angie Huang
-Rex Fernando
-Aleks Zi
-```
+This should be identical to the `b2sum` hash of the `verification_key.json` file already in the repo.
