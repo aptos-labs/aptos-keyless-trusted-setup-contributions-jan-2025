@@ -31,6 +31,14 @@ nvm use 18
 and
 
 ```
+git clone https://github.com/iden3/circom
+cd circom/
+git switch -d v2.1.7
+cargo build --release
+cargo install --path circom
+
+npm install -g circomlib@2.0.5
+
 npm install snarkjs@0.7.5
 ```
 
@@ -60,12 +68,17 @@ npx snarkjs@0.7.5 powersoftau verify powersOfTau28_hez_final_21.ptau -v
 
 # Reproducing the .r1cs file
 
-To reproduce `main_c60ae945e577295ac1a712391af1bcb337c584d2.r1cs`, clone the [Private Keyless Zk Proofs Repo](https://github.com/aptos-labs/keyless-zk-proofs-private), checkout commit `c60ae945e577295ac1a712391af1bcb337c584d2`, and run the following commands:
+To reproduce `main_c60ae945e577295ac1a712391af1bcb337c584d2.r1cs`, clone the
+
+You can reproduce the `main_c60ae945e577295ac1a712391af1bcb337c584d2.r1cs` hash by cloning the [keyless-zk-proofs](https://github.com/aptos-labs/keyless-zk-proofs) tag `circuit-v1.0.1` via the following commands:
 
 ```
-cd circuit
-npm install circomlib
+git clone https://github.com/aptos-labs/keyless-zk-proofs
+cd keyless-zk-proofs/
+git checkout circuit-v1.0.1
+cd circuit/
 circom -l `npm root -g` templates/main.circom --r1cs
+b2sum main.r1cs
 ```
 
 The `b2sum` hash of the resulting `main.r1cs` file should be 
